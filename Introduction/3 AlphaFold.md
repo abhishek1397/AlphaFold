@@ -66,3 +66,93 @@ Since its public release in 2021, AlphaFold2 has been widely adopted by research
 
 ---
 
+# AlphaFold2
+
+### Overview
+AlphaFold2 is a breakthrough deep learning model designed to predict protein structures. Its capabilities and constraints are deeply tied to the data used during its training.
+
+## ✅ What AlphaFold2 Can Do
+
+* **Single-Chain Protein Structure Prediction**:
+  Originally trained on individual protein chains from the Protein Data Bank (PDB), AlphaFold2 demonstrates high accuracy in predicting single-chain structures.
+
+* **Protein-Protein Complexes (AlphaFold-Multimer)**:
+  An extended version, **AlphaFold-Multimer** (Evans et al., 2022), was trained to predict:
+
+  * **Homo-multimers** (identical protein chains, e.g., dimers, hexamers — identical chains)
+  * **Hetero-multimers** (protein complexes made of different chains)
+
+* **Novel Structure Prediction**:
+  AlphaFold2 is not limited to replicating known protein structures. Independent studies (Bordin et al., 2023; Barrio-Hernandez et al., 2023; Durairaj et al., 2023) have demonstrated that it can predict entirely **novel protein folds**, previously unseen in the PDB.
+
+
+## ⚠️ Limitations
+
+* **Training Data Scope**:
+  AlphaFold2 was trained using only **protein structures** from the PDB, excluding other biological components like:
+
+  * Small molecules
+  * Nucleic acids
+
+  This limits its ability to predict structures involving these non-protein elements.
+
+* **Limited Prediction of Dynamic and Disordered Regions**:
+  AlphaFold2 struggles to predict disordered or dynamic regions that do not conform to a fixed structure in nature, as these regions do not have a single stable conformation.
+
+
+
+## ⚠️ What AlphaFold2 Struggles With
+
+* **Sensitivity to Point Mutations**:
+  AlphaFold2 is not sensitive to point mutations that alter a single residue in the protein sequence. This limitation arises from:
+
+  * A **lack of data** on the effects of variations.
+  * AlphaFold2’s focus on identifying **patterns** rather than calculating **physical forces**.
+
+  As a result, AlphaFold2 may not accurately predict structures affected by point mutations or other sequence variations, particularly in cases like **immune system molecules** (e.g., antibodies) where sequences are highly variable.
+
+* **Prediction of “Orphan” Proteins**:
+  AlphaFold2 relies on **sequence relationships** to predict protein structures. For “orphan” proteins — those with few or no close relatives — the lack of sufficient sequence data hampers AlphaFold2's ability to generate accurate predictions. When related sequences are rare or lack known structures in the PDB, the predictions often come with low confidence scores.
+
+* **Dynamic Conformational Changes**:
+  AlphaFold2 is designed to predict **static** protein structures, which are essentially **structural snapshots**. While many proteins undergo structural changes to perform their biological functions, these conformational shifts are underrepresented in the PDB. As a result:
+
+  * AlphaFold2 does not capture these dynamic changes by default.
+  * However, through **advanced techniques**, it is possible to force AlphaFold2 to predict alternative conformations (see section: *“Advanced modelling and applications of predicted protein structures”*).
+
+
+![Hexokinase Conformations](https://ftp.ebi.ac.uk/pub/training/2024/On-demand/PDBe_KB_2.gif)
+[Figure 2.](https://ftp.ebi.ac.uk/pub/training/2024/On-demand/PDBe_KB_2.gif) One of AlphaFold’s limitations is that it is not aware of molecules that bind to proteins, which can affect the protein’s 3D structure. Hexokinase (Q96Y14) adopts distinct conformations in the presence (orange, left) and absence (green, right) of sugar. Notably, AlphaFold’s structure prediction aligns with the sugar-free state (as could be seen both visually and via RMSD value).
+
+---
+
+## ⚠️ What AlphaFold2 Can’t Do
+
+* **Interaction with Non-Protein Molecules**:
+  AlphaFold2 is **not aware** of interactions with molecules outside of proteins, such as:
+
+  * **Nucleic acids**
+  * **Small molecule co-factors**
+  * **Ions**
+  * **Other non-protein components**
+
+  While AlphaFold2 was not designed to model post-translational modifications or free nucleic acid structures, it may still predict **ligand- or ion-bound protein forms**, even in the absence of the actual ligand/ion.
+
+* **Membrane Protein Modeling**:
+  AlphaFold2 does not account for the **membrane plane** and thus cannot correctly model:
+
+  * The **relative orientations** of trans-membrane domains.
+  * The positioning of other protein domains in membrane proteins.
+
+  However, AlphaFold2 provides **confidence scores** to alert users to uncertainties, with issues in membrane protein modeling often reflected in the predicted aligned error (PAE) score.
+
+---
+
+| AlphaFold2 Predicts                              | AlphaFold2 Struggles to Predict                         | AlphaFold2 Doesn’t Predict                                      |
+|--------------------------------------------------|---------------------------------------------------------|------------------------------------------------------------------|
+| Single protein chains                            | Multiple conformations for the same sequence            | Protein-DNA and protein-RNA complexes                           |
+| Protein multimers                                | Effects of point mutations                              | Nucleic acid structure                                           |
+| Multisubunit protein-protein complexes           | Antigen-antibody interactions                           | Post-translational modifications                                |
+|                                                  |                                                         | Ligand and ion binding (accurately and explicitly)              |
+|                                                  |                                                         | Membrane plane for transmembrane domains                        |
+
