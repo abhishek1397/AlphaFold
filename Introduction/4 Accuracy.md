@@ -64,7 +64,7 @@
 
 ![Phenylalanine hydroxylase](https://github.com/user-attachments/assets/638a0652-2804-427f-9d08-948bc9e8a1de)
 
-*Figure 11. Phenylalanine hydroxylase.*  
+*Figure 1. Phenylalanine hydroxylase.*  
 While overall structural alignment is evident, several side chains (the smaller, branching structures extending from the main protein backbone) in the AlphaFold model (**AF-Q818B4-F1**) are positioned incorrectly compared to those in the deposited model (grey, **PDB ID: 7VGM**).
 
 
